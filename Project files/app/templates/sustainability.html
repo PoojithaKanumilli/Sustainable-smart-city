@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Sustainability Page</h2>
+<textarea id="text-box" placeholder="Type something"></textarea>
+<button onclick="sendToAPI()">Send to API</button>
+<p id="response"></p>
+
+<script>
+  async function sendToAPI() {
+    const content = document.getElementById('text-box').value;
+    const res = await fetch('/api/generate_report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content })
+    });
+    const data = await res.json();
+    document.getElementById('response').innerText = data.result;
+  }
+</script>
+{% endblock %}
